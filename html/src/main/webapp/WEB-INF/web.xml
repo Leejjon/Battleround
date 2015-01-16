@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+														 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+	<servlet>
+		<servlet-name>RegisterServlet</servlet-name>
+		<servlet-class>org.stofkat.battleround.server.authentication.RegisterServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>LoginServlet</servlet-name>
+		<servlet-class>org.stofkat.battleround.server.authentication.LoginServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>CaptchaServlet</servlet-name>
+		<servlet-class>org.stofkat.battleround.server.captcha.CaptchaServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>GwtDispatchServlet</servlet-name>
+		<servlet-class>org.stofkat.battleround.server.gwt.GwtDispatchServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>HttpDispatchServlet</servlet-name>
+		<servlet-class>org.stofkat.battleround.server.http.HttpDispatchServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ImageUploaderServlet</servlet-name>
+		<servlet-class>org.stofkat.battleround.server.uploader.ImageUploaderServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RegisterServlet</servlet-name>
+		<url-pattern>/Register</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>LoginServlet</servlet-name>
+		<url-pattern>/Login</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CaptchaServlet</servlet-name>
+		<url-pattern>/Captcha</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GwtDispatchServlet</servlet-name>
+		<url-pattern>/battleround/BattleRound-gwt</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>HttpDispatchServlet</servlet-name>
+		<url-pattern>/BattleRound-http</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ImageUploaderServlet</servlet-name>
+		<url-pattern>/ImageUploader</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>levelDesignerServlet</servlet-name>
+		<servlet-class>org.stofkat.battleround.leveldesigner.server.LevelDesignerServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>levelDesignerServlet</servlet-name>
+		<url-pattern>/LevelDesigner/servlet</url-pattern>
+	</servlet-mapping>
+
+	<!-- Nothing to see here folks, just a huge security flaw so carry on. -->
+	<listener>
+		<listener-class>org.stofkat.battleround.server.LoginSessionCollector</listener-class>
+	</listener>
+</web-app>

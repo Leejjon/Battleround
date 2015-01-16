@@ -1,0 +1,41 @@
+@CHARSET "ISO-8859-1";
+
+/* Removing the underlining in the urls. */
+a:link, a:active, a:visited { text-decoration: none; }
+
+#header {
+	/* Reset margin */
+	margin-top: 0px;
+	font-weight: bolder;
+	margin-bottom: 0px;
+	line-height: 15px;
+	padding-top: 10px;
+	padding-bottom: 5px;
+	font-weight: normal;
+	font-size: 25px;
+}
+
+td.inputField {
+	width: 150px;
+	height: 25px;
+}
+
+input.inputField {
+	width: 195px;
+}
+
+div.validIcon {
+	width: 25px;
+	height: 19px;
+	background-image: url(../images/validicon.png);
+}
+
+div.invalidIcon {
+	width: 25px;
+	height: 19px;
+	background-image: url(../images/invalidicon.png);
+}
+
+#validationMessage {
+	color: red;
+}

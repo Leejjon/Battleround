@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Register</title>
+	<style>
+		#registerTable {
+			text-align: left;
+			margin-left: -3px;
+			padding-top: 5px;
+		}
+	</style>
+	<script type="text/javascript" src="../scripts/Register.js"></script>
+	<script type="text/javascript" src="../scripts/Validation.js"></script>
+	<link rel="stylesheet" type="text/css" href="../stylesheets/default.css">
+</head>
+<body>
+	<h1>Register</h1>
+	<div id="registerForm">
+	<form action="javascript: tryToRegister()">
+	<p>You can register here for free.</p>
+	<p id="validationMessage"></p>
+	<table id="registerTable">
+		<tr>
+			<td>User name:</td>
+			<td><input id="usernameInputField" class="inputField"
+				type="text" name="username" autocomplete="off" maxlength="20" 
+				onblur="validateRegisterUsername(false)" /></td>
+			<td><div id="usernameValidIcon"></div></td>
+		</tr>
+		<tr>
+			<td>Password:</td>
+			<td><input id="passwordInputField" class="inputField"
+				type="password" name="password" maxlength="20" onblur="validateRegisterPassword(false)"/></td>
+			<td><div id="passwordValidIcon"></div></td>
+		</tr>
+		<tr>
+			<td>E-mail address:</td>
+			<td><input id="emailInputField" class="inputField" type="text"
+				name="email" autocomplete="off" maxlength="80"
+				onblur="validateEmailAddress(false)" /></td>
+			<td style="width: 25px;"><div id="emailValidIcon"></div></td>
+		</tr>
+		<tr>
+			<td>Captcha picture:</td>
+			<td><img id="captchaImage" src="http://192.168.2.9:8888/Captcha" alt="Sheep" /></td>
+		</tr>
+		<tr>
+			<td>Number of sheep:</td>
+			<td><input id="captchaInputField" class="inputField" type="number" name="sheep" autocomplete="off" onblur="validateCaptchaNumber()" /></td>
+			<td><div id="captchaValidIcon"></div></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><input id="registerButton" type="submit" value="Register" /></td>
+		</tr>
+	</table>
+	</form>
+	</div>
+</body>
+</html>

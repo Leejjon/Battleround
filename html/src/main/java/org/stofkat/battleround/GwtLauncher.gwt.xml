@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" />
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit trunk//EN" "http://google-web-toolkit.googlecode.com/svn/trunk/distro-source/core/src/gwt-module.dtd">
+<module rename-to='battleround'>
+	<inherits name='com.badlogic.gdx.backends.gdx_backends_gwt' />
+	
+	<!-- 
+	These paths are actually important!
+	I have no proof but I think that GWT only converts the following packages into javascript.
+	
+	So right now it's:
+	org.stofkat.battleround.client
+	org.stofkat.battleround.core
+	etc.
+	 -->
+	<source path='client'/>
+	<source path='core'/>
+	<source path='html'/>
+	<source path='level'/>
+	<source path='common'/>
+	<source path='shared'/>
+	<public path="resources" />
+
+	<entry-point class='org.stofkat.battleround.html.GwtLauncher'/>
+	<set-configuration-property name="gdx.assetpath" value="assets" />
+	<set-configuration-property name="gdx.assetoutputpath" value="html/target/webapp" />
+</module>

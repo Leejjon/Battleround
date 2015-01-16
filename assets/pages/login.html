@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Log in</title>
+	<link rel="stylesheet" type="text/css" href="../stylesheets/default.css">
+	<script type="text/javascript" src="../scripts/Login.js"></script>
+	<script type="text/javascript" src="../scripts/Validation.js"></script>
+</head>
+<body>
+	<h2 id="header">Log in</strong></h2>
+	<p>To play battleround you need to login with your account. If you don't have an account, you can create one <a href="register.html">here</a>.</p>
+	<p id="validationMessage"></p>
+	<div id="loginForm">
+	<form action="javascript: tryToLogin()">
+		<table id="loginTable">
+			<tr>
+				<td>User name:</td>
+				<td><input id="usernameInputField" class="inputField" type="text"  autocomplete="off" maxlength="20" /></td>
+				<td><div id="usernameValidIcon"></div></td>
+			</tr>
+			<tr>
+				<td>Password:</td>
+				<td><input id="passwordInputField" class="inputField" type="password" maxlength="20" /></td>
+				<td><div id="passwordValidIcon"></div></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input id="loginButton" type="submit" value="Log in" /></td>
+			</tr>
+		</table>
+		</form>
+	</div>
+</body>
+</html>
