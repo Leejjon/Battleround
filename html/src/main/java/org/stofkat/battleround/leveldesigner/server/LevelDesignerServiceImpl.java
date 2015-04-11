@@ -6,12 +6,12 @@ import javax.servlet.http.HttpSession;
 import org.stofkat.battleround.common.User;
 import org.stofkat.battleround.common.level.structure.Level;
 import org.stofkat.battleround.database.AuthenticationConnection;
-import org.stofkat.battleround.database.DatabaseConnection;
 import org.stofkat.battleround.database.DatabaseException;
 import org.stofkat.battleround.database.LevelConnection;
 import org.stofkat.battleround.leveldesigner.client.LevelDesignerService;
 import org.stofkat.battleround.leveldesigner.exceptions.AuthorizationException;
 import org.stofkat.battleround.leveldesigner.exceptions.CouldNotLoadExistingLevelException;
+import org.stofkat.battleround.server.DatabaseInformationObtainer;
 import org.stofkat.battleround.shared.dispatch.exceptions.ActionException;
 import org.stofkat.battleround.shared.dispatch.exceptions.AuthenticationException;
 
@@ -43,7 +43,7 @@ public class LevelDesignerServiceImpl extends RemoteServiceServlet implements Le
 		if (user != null && user instanceof User) {
 			try {
 			long userId = ((User) user).getId();
-				LevelConnection connection = new LevelConnection(DatabaseConnection.getDbConfig(), true);
+				LevelConnection connection = new LevelConnection(DatabaseInformationObtainer.getDbInfo(this.getServletContext()), true);
 				
 				Level level = connection.loadExistingLevel(userId, levelId);
 				if (level == null) {

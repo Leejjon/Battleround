@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import org.stofkat.battleround.database.AuthenticationConnection;
 import org.stofkat.battleround.database.DatabaseConnection;
 import org.stofkat.battleround.database.DatabaseException;
+import org.stofkat.battleround.server.DatabaseInformationObtainer;
 import org.stofkat.battleround.server.security.EncryptionUtility;
 
 /**
@@ -42,7 +43,7 @@ public class CaptchaServlet extends HttpServlet {
 		boolean captchaAllowed = false;
 		
 		try {
-			AuthenticationConnection connection = new AuthenticationConnection(DatabaseConnection.getDbConfig(), true);
+			AuthenticationConnection connection = new AuthenticationConnection(DatabaseInformationObtainer.getDbInfo(this.getServletContext()), true);
 			captchaAllowed = connection.isAllowedToAttemptCaptcha(EncryptionUtility.getSHA512HashAsByteArray(request.getRemoteAddr()));
 			connection.close();
 		} catch (DatabaseException e) {

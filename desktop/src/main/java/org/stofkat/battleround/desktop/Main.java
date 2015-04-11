@@ -24,7 +24,7 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-	private static DesktopDispatchServiceAsync service = new DesktopDispatchServiceAsync("http://127.0.0.1:8888" + "/BattleRound-http");
+	private static DesktopDispatchServiceAsync service = new DesktopDispatchServiceAsync("http://127.0.0.1:8080" + "/BattleRound-http");
 
 	public static void main(String[] args) {
 		launch(args);

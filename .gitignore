@@ -4,5 +4,5 @@
 target/
 .metadata/
 RemoteSystemsTempFiles
-/test/android/bin/
-/test/android/gen/
+/android/bin/
+/android/gen/

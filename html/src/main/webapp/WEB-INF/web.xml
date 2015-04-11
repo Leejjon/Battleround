@@ -52,7 +52,7 @@
 		<servlet-name>ImageUploaderServlet</servlet-name>
 		<url-pattern>/ImageUploader</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>levelDesignerServlet</servlet-name>
 		<servlet-class>org.stofkat.battleround.leveldesigner.server.LevelDesignerServiceImpl</servlet-class>

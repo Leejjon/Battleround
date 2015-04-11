@@ -12,13 +12,13 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
-import org.stofkat.battleround.database.AuthenticationConnection;
-import org.stofkat.battleround.database.DatabaseConnection;
-import org.stofkat.battleround.database.DatabaseException;
-import org.stofkat.battleround.database.security.ValidationUtility;
-import org.stofkat.battleround.server.security.EncryptionUtility;
 import org.stofkat.battleround.common.User;
 import org.stofkat.battleround.common.resources.Resources;
+import org.stofkat.battleround.database.AuthenticationConnection;
+import org.stofkat.battleround.database.DatabaseException;
+import org.stofkat.battleround.database.security.ValidationUtility;
+import org.stofkat.battleround.server.DatabaseInformationObtainer;
+import org.stofkat.battleround.server.security.EncryptionUtility;
 
 /**
  * Servlet implementation class Login
@@ -74,7 +74,8 @@ public class LoginServlet extends HttpServlet {
 					answerKey = Resources.LOGIN_ALREADY_LOGGED_IN.getKey();
 				} else { // This session is not logged in yet.
 					// Open the connection, with auto commit disabled.
-					accountsConnection = new AuthenticationConnection(DatabaseConnection.getDbConfig(), false);
+					
+					accountsConnection = new AuthenticationConnection(DatabaseInformationObtainer.getDbInfo(this.getServletContext()), false);
 					User user = accountsConnection.login(username, password, EncryptionUtility.getSHA512HashAsByteArray(request.getRemoteAddr()));
 					if (user == null || !ValidationUtility.onlyContainsLettersAndNumbers(username) || !ValidationUtility.isThisPasswordValid(password)) {
 						answerKey = Resources.LOGIN_FAILED.getKey();

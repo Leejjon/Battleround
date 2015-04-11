@@ -108,30 +108,4 @@ public class DatabaseConnection {
 			}
 		}
 	}
-	
-	public static Properties getDbConfig() throws DatabaseException {
-//		System.out.println(new File("").getAbsolutePath());
-//		String dbInfoFileName = new File("").getAbsolutePath() + File.separatorChar + "config" + File.separatorChar + "dbinfo.properties";
-		Properties dbInfo = new Properties();
-		InputStream in = null;
-		try {
-//			dbInfo.load(new FileInputStream(dbInfoFileName));
-			in = DatabaseConnection.class.getResourceAsStream("testdbinfo.properties");
-			dbInfo.load(in);
-			in.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			throw new DatabaseException(DatabaseException.couldNotLoadConfig);
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new DatabaseException(DatabaseException.couldNotLoadConfig);
-		} finally {
-			if (in != null) {
-				try {
-					in.close();
-				} catch (IOException e) {}
-			}
-		}
-		return dbInfo;
-	}
 }

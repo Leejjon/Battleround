@@ -13,7 +13,7 @@
 	<name>Engine desktop</name>
 
 	<properties>
-		<mainClass>org.stofkat.battleround.java.EngineDesktop</mainClass>
+		<mainClass>org.stofkat.battleround.desktop.Main</mainClass>
 	</properties>
 
 	<dependencies>

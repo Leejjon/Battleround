@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.stofkat.battleround.common.resources.Resources;
 import org.stofkat.battleround.database.AuthenticationConnection;
-import org.stofkat.battleround.database.DatabaseConnection;
 import org.stofkat.battleround.database.DatabaseException;
 import org.stofkat.battleround.database.security.ValidationException;
+import org.stofkat.battleround.server.DatabaseInformationObtainer;
 import org.stofkat.battleround.server.captcha.CaptchaServlet;
 import org.stofkat.battleround.server.security.EncryptionUtility;
-import org.stofkat.battleround.common.resources.Resources;
 
 /**
  * Servlet implementation class RegisterServlet
@@ -66,7 +66,7 @@ public class RegisterServlet extends HttpServlet {
 			String answerKey = "";
 			
 			if (o != null && o instanceof Integer) { // If there isn't a captcha answer stored, the user needs to refresh the image to get a new answer.
-				authenticationConnection = new AuthenticationConnection(DatabaseConnection.getDbConfig(), false); // Create the connection with the database.
+				authenticationConnection = new AuthenticationConnection(DatabaseInformationObtainer.getDbInfo(this.getServletContext()), false); // Create the connection with the database.
 				
 				// Check if the max captcha attempt count isn't reached.
 				if (authenticationConnection.isAllowedToAttemptCaptcha(clientIpAddressHash)) { 
