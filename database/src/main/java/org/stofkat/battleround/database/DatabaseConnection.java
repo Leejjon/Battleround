@@ -26,6 +26,8 @@ public class DatabaseConnection {
 			
 			Class.forName("org.postgresql.Driver");
 			
+			System.err.println("jdbc:postgresql://" + hostname + "/battleround" + " db info = " + dbInfo);
+			
 			// TODO: Also make a parameter for the hostname and port.
 			connection = DriverManager.getConnection(
 				"jdbc:postgresql://" + hostname + "/battleround", dbInfo);

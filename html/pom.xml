@@ -12,11 +12,6 @@
 	<packaging>war</packaging>
 	<name>GWT and server</name>
 
-	<!-- <properties>
-		<gwt.module>org.stofkat.battleround.GwtLauncher</gwt.module>
-		<gwt.name>battleround</gwt.name>
-	</properties>-->
-
 	<dependencies>
 		<dependency>
 			<groupId>org.stofkat.battleround</groupId>
@@ -84,14 +79,6 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.5.11</version>
 		</dependency>
-	
-		<!-- 
-		<dependency>
-			<groupId>aopalliance</groupId>
-			<artifactId>aopalliance</artifactId>
-			<version>1.0</version>
-		</dependency>
-		 -->
 		
 		<dependency>
 			<groupId>com.google.inject</groupId>
@@ -226,7 +213,7 @@
                     <address>0.0.0.0</address>
                     <port>8080</port>
                     <jvmFlags>
-                      <jvmFlag>-agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=n</jvmFlag>
+                      <jvmFlag>-agentlib:jdwp=transport=dt_socket,address=1044,server=y,suspend=n</jvmFlag>
                     </jvmFlags> 
                 </configuration>
             </plugin>

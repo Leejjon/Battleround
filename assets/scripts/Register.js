@@ -60,7 +60,7 @@ function register(userName, password, email, captchaNumber) {
 		xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
 	}
 
-	var url = "http://192.168.2.9:8888/Register";
+	var url = "http://" + window.location.host  + "/Register";
 	var params = "username=" + userName + "&password=" + password;
 	
 	if(email.length != 0) {

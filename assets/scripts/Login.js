@@ -37,7 +37,7 @@ function tryToLogin() {
 		xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
 	}
 	
-	var url = "http://127.0.0.1:8080/Login";
+	var url = "http://" + window.location.host  + "/Login";
 	var params = "username=" + userName + "&password=" + password;
 	xmlHttp.open("POST", url, true);
 	
@@ -58,7 +58,7 @@ function tryToLogin() {
 				if (typeof java !== 'undefined') {
 					java.start(setCookieHeader.split(";")[0].split("=")[1]);
 				} else {
-					window.location.href = "http://127.0.0.1:8080/assets/pages/levels.html";
+					window.location.href = "http://" + window.location.host  + "/assets/pages/levels.html";
 				}	
 			} else {
 				document.getElementById("validationMessage").innerHTML = getResources(xmlHttp.responseText);

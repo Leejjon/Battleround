@@ -2,6 +2,7 @@ package org.stofkat.battleround.server.authentication;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -74,8 +75,8 @@ public class LoginServlet extends HttpServlet {
 					answerKey = Resources.LOGIN_ALREADY_LOGGED_IN.getKey();
 				} else { // This session is not logged in yet.
 					// Open the connection, with auto commit disabled.
-					
-					accountsConnection = new AuthenticationConnection(DatabaseInformationObtainer.getDbInfo(this.getServletContext()), false);
+					Properties dbInfo = DatabaseInformationObtainer.getDbInfo(this.getServletContext());
+					accountsConnection = new AuthenticationConnection(dbInfo, false);
 					User user = accountsConnection.login(username, password, EncryptionUtility.getSHA512HashAsByteArray(request.getRemoteAddr()));
 					if (user == null || !ValidationUtility.onlyContainsLettersAndNumbers(username) || !ValidationUtility.isThisPasswordValid(password)) {
 						answerKey = Resources.LOGIN_FAILED.getKey();
