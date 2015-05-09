@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.util.Properties;
 
 import org.junit.After;
@@ -30,7 +31,7 @@ public class AuthenticationConnectionITCase extends DatabaseTest {
 			dbInfo.load(inputStream);
 			inputStream.close();
 			
-			authenticationConnection = new AuthenticationConnection(dbInfo, true);
+			authenticationConnection = new AuthenticationConnection(dbInfo, false, true);
 			
 			// First drop the previous database.
 			dropSchemaIfExists(authenticationConnection);
@@ -50,7 +51,7 @@ public class AuthenticationConnectionITCase extends DatabaseTest {
 	}
 	
 	@Test
-	public void testAuthenticationMechanism() {
+	public void testAuthenticationMechanism() throws SQLException {
 		// Test the captcha authentication.
 		try {
 			ipAddress = EncryptionUtility.getSHA512HashAsByteArray("1.3.3.7");

@@ -13,8 +13,8 @@ import org.stofkat.battleround.database.security.ValidationException;
 import org.stofkat.battleround.database.security.ValidationUtility;
 
 public class LevelConnection extends DatabaseConnection {
-	public LevelConnection(Properties dbConfig, boolean autoCommit) throws DatabaseException {
-		super(dbConfig, autoCommit);
+	public LevelConnection(Properties dbConfig, boolean productionMode, boolean autoCommit) throws DatabaseException {
+		super(dbConfig, productionMode, autoCommit);
 	}
 	
 	protected LevelConnection(Connection connection, String schemaName) throws DatabaseException {

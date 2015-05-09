@@ -28,7 +28,7 @@ public class DropSchema extends DatabaseTest {
 			dbInfo.load(inputStream);
 			inputStream.close();
 			
-			databaseConnection = new DatabaseConnection(dbInfo, true);
+			databaseConnection = new DatabaseConnection(dbInfo, false, true);
 			
 		} catch (DatabaseException e) {
 			e.printStackTrace();

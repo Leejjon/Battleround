@@ -25,7 +25,7 @@ public abstract class DatabaseTest {
 		try {
 			String createIpAddressTable = "create table " + schemaName + ".ipaddress (" +
 					"ipId SERIAL PRIMARY KEY," +
-					"ipHash BYTEA UNIQUE NOT NULL" + 
+					"ipHash VARBINARY(64) UNIQUE NOT NULL" + 
 				")";
 			PreparedStatement createIpAddressTableStatement = databaseConnection.connection.prepareStatement(createIpAddressTable);
 			Assert.assertFalse(createIpAddressTableStatement.execute());
@@ -38,9 +38,9 @@ public abstract class DatabaseTest {
 			String createAccountTable = "create table " + schemaName + ".account (" +
 					"accountId SERIAL PRIMARY KEY," +
 					"accountName VARCHAR(20) UNIQUE NOT NULL," +
-					"passwordHash BYTEA NOT NULL," +
+					"passwordHash VARBINARY(64) NOT NULL," +
 					"registerTimestamp TIMESTAMP NOT NULL," + 
-					"ipIdOnRegister SERIAL REFERENCES " + schemaName + ".ipaddress(ipId)," +
+					"ipIdOnRegister BIGINT NOT NULL REFERENCES " + schemaName + ".ipaddress(ipId)," +
 					"emailAddress VARCHAR(80) unique" +
 				")";
 			PreparedStatement createAccountTableStatement = databaseConnection.connection.prepareStatement(createAccountTable);
@@ -53,7 +53,7 @@ public abstract class DatabaseTest {
 		try {
 			String createFailedCaptchaAttemptsTable = "create table " + schemaName + ".failed_captcha_attempts (" +
 					"failureTimestamp TIMESTAMP NOT NULL, " +
-					"ipId SERIAL REFERENCES " + schemaName + ".ipaddress(ipId)" +
+					"ipId BIGINT NOT NULL REFERENCES " + schemaName + ".ipaddress(ipId)" +
 				")";
 			PreparedStatement createFailedCaptchaAttemptsTableStatement = databaseConnection.connection.prepareStatement(createFailedCaptchaAttemptsTable);
 			Assert.assertFalse(createFailedCaptchaAttemptsTableStatement.execute());
@@ -66,9 +66,9 @@ public abstract class DatabaseTest {
 			String createLoginsTable = "create table " + schemaName + ".logins (" +
 					"loginId SERIAL PRIMARY KEY," +
 					"loginTimestamp TIMESTAMP NOT NULL," +
-					"ipId SERIAL REFERENCES " + schemaName + ".ipaddress(ipId)," +
+					"ipId BIGINT NOT NULL REFERENCES " + schemaName + ".ipaddress(ipId)," +
 					"successful BOOLEAN NOT NULL," +
- 					"accountId SERIAL REFERENCES " + schemaName + ".account(accountId)" +
+ 					"accountId BIGINT NOT NULL REFERENCES " + schemaName + ".account(accountId)" +
 				")"; 
 			PreparedStatement createLoginsTableStatement = databaseConnection.connection.prepareStatement(createLoginsTable);
 			Assert.assertFalse(createLoginsTableStatement.execute());
@@ -87,7 +87,7 @@ public abstract class DatabaseTest {
 					"levelWidth SMALLINT NOT NULL DEFAULT 16," +
 					"levelHeight SMALLINT NOT NULL DEFAULT 16," +
 					"forkable BOOLEAN DEFAULT TRUE, " +
-					"ownerId SERIAL REFERENCES " + schemaName + ".account(accountId) " +
+					"ownerId BIGINT NOT NULL REFERENCES " + schemaName + ".account(accountId) " +
 				")";
 			PreparedStatement createLevelTableStatement = databaseConnection.connection.prepareStatement(createLevelTable);
 			Assert.assertFalse(createLevelTableStatement.execute());
@@ -100,9 +100,9 @@ public abstract class DatabaseTest {
 			String createImageTabel = "create table " + schemaName + ".image (" +
 					"imageId SERIAL PRIMARY KEY," +
 					"imageFileName VARCHAR(50) NOT NULL," +
-					"ownerId SERIAL REFERENCES " + schemaName + ".account(accountId)," +
-					"usableByOtherThanOwner BOOLEAN NOT NULL," +
-					"imageFile BYTEA NOT NULL" +
+					"ownerId BIGINT NOT NULL REFERENCES " + schemaName + ".account(accountId)," +
+					"accessibility TINYINT NOT NULL," +
+					"imageKeyId BIGINT NOT NULL" +
 				")";
 			PreparedStatement createImageTableStatement = databaseConnection.connection.prepareStatement(createImageTabel);
 			Assert.assertFalse(createImageTableStatement.execute());
@@ -118,7 +118,7 @@ public abstract class DatabaseTest {
 	public void dropSchemaIfExists(DatabaseConnection databaseConnection) {
 		try {
 			String schemaName = databaseConnection.getSchemaName();
-			PreparedStatement createSchema = databaseConnection.connection.prepareStatement("drop schema if exists " + schemaName + " cascade");
+			PreparedStatement createSchema = databaseConnection.connection.prepareStatement("drop schema if exists " + schemaName);
 			Assert.assertFalse(createSchema.execute());
 		} catch (SQLException e) {
 			Assert.fail(e.getMessage());

@@ -8,13 +8,14 @@ import java.util.Properties;
 import org.stofkat.battleround.database.security.ValidationUtility;
 
 public class DatabaseConnection {
+	public static final String databaseName = "battleround";
 	protected Connection connection;
 	protected String schemaName;
 	protected boolean autoCommit;
 	private boolean committed = false;
 	private boolean rolledBack = false;
 	
-	protected DatabaseConnection(Properties dbInfo, boolean autoCommit) throws DatabaseException {
+	protected DatabaseConnection(Properties dbInfo, boolean productionMode, boolean autoCommit) throws DatabaseException {
 		this.autoCommit = autoCommit;
 		try {
 			String hostname = dbInfo.getProperty("hostname");
@@ -24,15 +25,16 @@ public class DatabaseConnection {
 				throw new DatabaseException(DatabaseException.invalidSchema);
 			}
 			
-			Class.forName("org.postgresql.Driver");
-			
-			System.err.println("jdbc:postgresql://" + hostname + "/battleround" + " db info = " + dbInfo);
-			
-			// TODO: Also make a parameter for the hostname and port.
-			connection = DriverManager.getConnection(
-				"jdbc:postgresql://" + hostname + "/battleround", dbInfo);
-			connection.setAutoCommit(autoCommit);
-			
+			if (productionMode) {
+				// Load the class that provides the new "jdbc:google:mysql://" prefix.
+				Class.forName("com.mysql.jdbc.GoogleDriver");
+				connection = DriverManager.getConnection("jdbc:google:mysql://battle-round:battleround/" + databaseName + "?user=root");
+			} else {
+				// Local MySQL instance to use during development.
+				Class.forName("com.mysql.jdbc.Driver");
+				connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/" +  databaseName, dbInfo.getProperty("user"), dbInfo.getProperty("password"));
+			}
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DatabaseException(DatabaseException.illegalAccess, e);

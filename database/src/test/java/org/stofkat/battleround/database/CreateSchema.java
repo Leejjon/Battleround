@@ -28,7 +28,7 @@ public class CreateSchema extends DatabaseTest {
 			dbInfo.load(inputStream);
 			inputStream.close();
 			
-			databaseConnection = new DatabaseConnection(dbInfo, true);
+			databaseConnection = new DatabaseConnection(dbInfo, false, true);
 			
 			createTables(databaseConnection);
 		} catch (DatabaseException e) {

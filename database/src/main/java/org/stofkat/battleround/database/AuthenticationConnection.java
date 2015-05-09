@@ -25,8 +25,8 @@ public class AuthenticationConnection extends DatabaseConnection {
 	private final int minPasswordLength = 6;
 	public static final String userObjectKey = "user";
 	
-	public AuthenticationConnection(Properties dbConfig, boolean autoCommit) throws DatabaseException {
-		super(dbConfig, autoCommit);
+	public AuthenticationConnection(Properties dbConfig, boolean productionMode, boolean autoCommit) throws DatabaseException {
+		super(dbConfig, productionMode, autoCommit);
 	}
 	
 	public AuthenticationConnection(Connection connection, String schemaName) throws DatabaseException {
@@ -119,7 +119,7 @@ public class AuthenticationConnection extends DatabaseConnection {
 				"from " + getSchemaName() + ".FAILED_CAPTCHA_ATTEMPTS FCA inner join " +
 				getSchemaName() + ".IPADDRESS IPS on FCA.ipId = IPS.ipId " +
 				"where IPS.ipHash = ? " +
-				"and FCA.FAILURETIMESTAMP > CURRENT_TIMESTAMP - INTERVAL '10 minutes'";
+				"and FCA.FAILURETIMESTAMP > CURRENT_TIMESTAMP - INTERVAL 10 MINUTE";
 		try {
 			PreparedStatement isAllowedToAttemptCaptchaStatement = connection.prepareStatement(isAllowedToAttemptCaptchaQuery);
 			isAllowedToAttemptCaptchaStatement.setBytes(1, ipAddressHash);
@@ -154,7 +154,7 @@ public class AuthenticationConnection extends DatabaseConnection {
 				"from " + getSchemaName() + ".LOGINS LI inner join " + getSchemaName() +
 				".IPADDRESS IPS on LI.ipId = IPS.ipId " +
 				"where IPS.ipId = ? and LI.successful = false " +
-				"and LI.loginTimestamp > CURRENT_TIMESTAMP - INTERVAL '10 minutes'"; 
+				"and LI.loginTimestamp > CURRENT_TIMESTAMP - INTERVAL 10 MINUTE"; 
 		try {
 			PreparedStatement isAllowedToLoginStatement = connection.prepareStatement(isAllowedToLoginQuery);
 			isAllowedToLoginStatement.setInt(1, ipId);

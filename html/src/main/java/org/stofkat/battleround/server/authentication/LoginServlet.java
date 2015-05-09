@@ -21,6 +21,8 @@ import org.stofkat.battleround.database.security.ValidationUtility;
 import org.stofkat.battleround.server.DatabaseInformationObtainer;
 import org.stofkat.battleround.server.security.EncryptionUtility;
 
+import com.google.appengine.api.utils.SystemProperty;
+
 /**
  * Servlet implementation class Login
  */
@@ -76,7 +78,8 @@ public class LoginServlet extends HttpServlet {
 				} else { // This session is not logged in yet.
 					// Open the connection, with auto commit disabled.
 					Properties dbInfo = DatabaseInformationObtainer.getDbInfo(this.getServletContext());
-					accountsConnection = new AuthenticationConnection(dbInfo, false);
+					boolean productionMode = SystemProperty.environment.value() == SystemProperty.Environment.Value.Production;
+					accountsConnection = new AuthenticationConnection(dbInfo, productionMode, false);
 					User user = accountsConnection.login(username, password, EncryptionUtility.getSHA512HashAsByteArray(request.getRemoteAddr()));
 					if (user == null || !ValidationUtility.onlyContainsLettersAndNumbers(username) || !ValidationUtility.isThisPasswordValid(password)) {
 						answerKey = Resources.LOGIN_FAILED.getKey();

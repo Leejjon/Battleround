@@ -5,8 +5,8 @@ import java.util.Properties;
 
 public class SpriteConnection extends DatabaseConnection {
 	
-	public SpriteConnection(Properties dbConfig, boolean autoCommit) throws DatabaseException {
-		super(dbConfig, autoCommit);
+	public SpriteConnection(Properties dbConfig, boolean productionMode, boolean autoCommit) throws DatabaseException {
+		super(dbConfig, productionMode, autoCommit);
 	}
 	
 	protected SpriteConnection(Connection connection, String schemaName) throws DatabaseException {

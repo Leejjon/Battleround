@@ -35,6 +35,7 @@ import com.google.appengine.api.datastore.KeyFactory;
  * 
  * @author Leejjon
  */
+// TODO: Try to move this class to the database module, and see if we can still get the defaultdbinfo.properties from the WEB-INF folder.
 public class DatabaseInformationObtainer {
 	private static final Logger log = Logger
 			.getLogger(DatabaseInformationObtainer.class);

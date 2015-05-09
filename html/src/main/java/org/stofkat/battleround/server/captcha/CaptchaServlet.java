@@ -18,6 +18,8 @@ import org.stofkat.battleround.database.DatabaseException;
 import org.stofkat.battleround.server.DatabaseInformationObtainer;
 import org.stofkat.battleround.server.security.EncryptionUtility;
 
+import com.google.appengine.api.utils.SystemProperty;
+
 /**
  * Servlet implementation class CaptchaServlet
  */
@@ -43,7 +45,8 @@ public class CaptchaServlet extends HttpServlet {
 		boolean captchaAllowed = false;
 		
 		try {
-			AuthenticationConnection connection = new AuthenticationConnection(DatabaseInformationObtainer.getDbInfo(this.getServletContext()), true);
+			boolean productionMode = SystemProperty.environment.value() == SystemProperty.Environment.Value.Production;
+			AuthenticationConnection connection = new AuthenticationConnection(DatabaseInformationObtainer.getDbInfo(this.getServletContext()), productionMode, true);
 			captchaAllowed = connection.isAllowedToAttemptCaptcha(EncryptionUtility.getSHA512HashAsByteArray(request.getRemoteAddr()));
 			connection.close();
 		} catch (DatabaseException e) {

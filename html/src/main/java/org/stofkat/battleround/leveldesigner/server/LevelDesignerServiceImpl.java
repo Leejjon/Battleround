@@ -15,6 +15,7 @@ import org.stofkat.battleround.server.DatabaseInformationObtainer;
 import org.stofkat.battleround.shared.dispatch.exceptions.ActionException;
 import org.stofkat.battleround.shared.dispatch.exceptions.AuthenticationException;
 
+import com.google.appengine.api.utils.SystemProperty;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
@@ -43,7 +44,8 @@ public class LevelDesignerServiceImpl extends RemoteServiceServlet implements Le
 		if (user != null && user instanceof User) {
 			try {
 			long userId = ((User) user).getId();
-				LevelConnection connection = new LevelConnection(DatabaseInformationObtainer.getDbInfo(this.getServletContext()), true);
+				boolean productionMode = SystemProperty.environment.value() == SystemProperty.Environment.Value.Production;
+				LevelConnection connection = new LevelConnection(DatabaseInformationObtainer.getDbInfo(this.getServletContext()), productionMode, true);
 				
 				Level level = connection.loadExistingLevel(userId, levelId);
 				if (level == null) {
