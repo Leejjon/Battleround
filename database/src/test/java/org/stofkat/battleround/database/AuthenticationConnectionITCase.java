@@ -1,11 +1,7 @@
 package org.stofkat.battleround.database;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import java.util.Properties;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -25,13 +21,7 @@ public class AuthenticationConnectionITCase extends DatabaseTest {
 	@Before
 	public void setupDatabaseConnection() {
 		try {
-			Properties dbInfo = new Properties();
-			
-			InputStream inputStream = DatabaseTest.class.getResourceAsStream("testdbinfo.properties");
-			dbInfo.load(inputStream);
-			inputStream.close();
-			
-			authenticationConnection = new AuthenticationConnection(dbInfo, false, true);
+			authenticationConnection = new AuthenticationConnection(false, true);
 			
 			// First drop the previous database.
 			dropSchemaIfExists(authenticationConnection);
@@ -41,13 +31,7 @@ public class AuthenticationConnectionITCase extends DatabaseTest {
 		} catch (DatabaseException e) {
 			e.printStackTrace();
 			Assert.fail(e.getMessage());
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			Assert.fail(e.getMessage());
-		} catch (IOException e) {
-			e.printStackTrace();
-			Assert.fail(e.getMessage());
-		} 
+		}  
 	}
 	
 	@Test

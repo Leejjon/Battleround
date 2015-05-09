@@ -13,9 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.stofkat.battleround.database.AuthenticationConnection;
-import org.stofkat.battleround.database.DatabaseConnection;
 import org.stofkat.battleround.database.DatabaseException;
-import org.stofkat.battleround.server.DatabaseInformationObtainer;
 import org.stofkat.battleround.server.security.EncryptionUtility;
 
 import com.google.appengine.api.utils.SystemProperty;
@@ -46,7 +44,7 @@ public class CaptchaServlet extends HttpServlet {
 		
 		try {
 			boolean productionMode = SystemProperty.environment.value() == SystemProperty.Environment.Value.Production;
-			AuthenticationConnection connection = new AuthenticationConnection(DatabaseInformationObtainer.getDbInfo(this.getServletContext()), productionMode, true);
+			AuthenticationConnection connection = new AuthenticationConnection(productionMode, true);
 			captchaAllowed = connection.isAllowedToAttemptCaptcha(EncryptionUtility.getSHA512HashAsByteArray(request.getRemoteAddr()));
 			connection.close();
 		} catch (DatabaseException e) {

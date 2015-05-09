@@ -12,7 +12,6 @@ public class DatabaseException extends Exception {
 	public static final String couldNotCloseConnection = "Could not close the database connection.";
 	public static final String databaseCorruptWarning = "Multiple rows returned while this column should have been unique. Somebody has been messing with the database.";
 	public static final String illegalAccess = "No access to connect to the database.";
-	public static final String invalidSchema = "Invalid schema name.";
 	public static final String transActionFailed = "Transaction failed";
 	
 	public DatabaseException(String errorMessage) {

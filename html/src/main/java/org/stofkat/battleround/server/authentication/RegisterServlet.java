@@ -15,7 +15,6 @@ import org.stofkat.battleround.common.resources.Resources;
 import org.stofkat.battleround.database.AuthenticationConnection;
 import org.stofkat.battleround.database.DatabaseException;
 import org.stofkat.battleround.database.security.ValidationException;
-import org.stofkat.battleround.server.DatabaseInformationObtainer;
 import org.stofkat.battleround.server.captcha.CaptchaServlet;
 import org.stofkat.battleround.server.security.EncryptionUtility;
 
@@ -69,7 +68,7 @@ public class RegisterServlet extends HttpServlet {
 			
 			if (o != null && o instanceof Integer) { // If there isn't a captcha answer stored, the user needs to refresh the image to get a new answer.
 				boolean productionMode = SystemProperty.environment.value() == SystemProperty.Environment.Value.Production;
-				authenticationConnection = new AuthenticationConnection(DatabaseInformationObtainer.getDbInfo(this.getServletContext()), productionMode, false); // Create the connection with the database.
+				authenticationConnection = new AuthenticationConnection(productionMode, false); // Create the connection with the database.
 				
 				// Check if the max captcha attempt count isn't reached.
 				if (authenticationConnection.isAllowedToAttemptCaptcha(clientIpAddressHash)) { 

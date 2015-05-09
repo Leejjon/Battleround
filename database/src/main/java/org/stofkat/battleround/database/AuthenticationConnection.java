@@ -8,13 +8,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.Properties;
 
+import org.stofkat.battleround.common.User;
+import org.stofkat.battleround.common.resources.Resources;
 import org.stofkat.battleround.database.security.ValidationException;
 import org.stofkat.battleround.database.security.ValidationUtility;
 import org.stofkat.battleround.server.security.EncryptionUtility;
-import org.stofkat.battleround.common.User;
-import org.stofkat.battleround.common.resources.Resources;
 
 public class AuthenticationConnection extends DatabaseConnection {
 	public static final int maxAccountNameLength = 20;
@@ -25,8 +24,8 @@ public class AuthenticationConnection extends DatabaseConnection {
 	private final int minPasswordLength = 6;
 	public static final String userObjectKey = "user";
 	
-	public AuthenticationConnection(Properties dbConfig, boolean productionMode, boolean autoCommit) throws DatabaseException {
-		super(dbConfig, productionMode, autoCommit);
+	public AuthenticationConnection(boolean productionMode, boolean autoCommit) throws DatabaseException {
+		super(productionMode, autoCommit);
 	}
 	
 	public AuthenticationConnection(Connection connection, String schemaName) throws DatabaseException {
@@ -49,7 +48,7 @@ public class AuthenticationConnection extends DatabaseConnection {
 		
 		ResultSet doesUserNameExistsResultSet = null;
 		try {
-			String checkIfUserExistsQuery = "select accountName from " + schemaName
+			String checkIfUserExistsQuery = "select accountName from " + getSchemaName()
 					+ ".ACCOUNT where UPPER(accountName) = UPPER(?)";
 			PreparedStatement checkIfUserExistsStatement = connection.prepareStatement(checkIfUserExistsQuery);
 			checkIfUserExistsStatement.setFetchSize(1);

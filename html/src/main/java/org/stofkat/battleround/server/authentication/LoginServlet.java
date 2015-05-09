@@ -2,7 +2,6 @@ package org.stofkat.battleround.server.authentication;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -18,7 +17,6 @@ import org.stofkat.battleround.common.resources.Resources;
 import org.stofkat.battleround.database.AuthenticationConnection;
 import org.stofkat.battleround.database.DatabaseException;
 import org.stofkat.battleround.database.security.ValidationUtility;
-import org.stofkat.battleround.server.DatabaseInformationObtainer;
 import org.stofkat.battleround.server.security.EncryptionUtility;
 
 import com.google.appengine.api.utils.SystemProperty;
@@ -77,9 +75,8 @@ public class LoginServlet extends HttpServlet {
 					answerKey = Resources.LOGIN_ALREADY_LOGGED_IN.getKey();
 				} else { // This session is not logged in yet.
 					// Open the connection, with auto commit disabled.
-					Properties dbInfo = DatabaseInformationObtainer.getDbInfo(this.getServletContext());
 					boolean productionMode = SystemProperty.environment.value() == SystemProperty.Environment.Value.Production;
-					accountsConnection = new AuthenticationConnection(dbInfo, productionMode, false);
+					accountsConnection = new AuthenticationConnection(productionMode, false);
 					User user = accountsConnection.login(username, password, EncryptionUtility.getSHA512HashAsByteArray(request.getRemoteAddr()));
 					if (user == null || !ValidationUtility.onlyContainsLettersAndNumbers(username) || !ValidationUtility.isThisPasswordValid(password)) {
 						answerKey = Resources.LOGIN_FAILED.getKey();

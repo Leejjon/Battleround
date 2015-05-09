@@ -1,10 +1,6 @@
 package org.stofkat.battleround.database;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
-import java.util.Properties;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -21,16 +17,10 @@ public class LevelConnectionITCase extends DatabaseTest {
 	private String email = "leejjon@gmail.com";
 	private String levelName = "Space quest";
 	
-//	@Before
+	@Before
 	public void setupDatabaseConnection() {
 		try {
-			Properties dbInfo = new Properties();
-			
-			InputStream inputStream = DatabaseTest.class.getResourceAsStream("testdbinfo.properties");
-			dbInfo.load(inputStream);
-			inputStream.close();
-			
-			connection = new AuthenticationConnection(dbInfo, false, true);
+			connection = new AuthenticationConnection(false, true);
 			
 			// First drop the previous database.
 			dropSchemaIfExists(connection);
@@ -40,16 +30,10 @@ public class LevelConnectionITCase extends DatabaseTest {
 		} catch (DatabaseException e) {
 			e.printStackTrace();
 			Assert.fail(e.getMessage());
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			Assert.fail(e.getMessage());
-		} catch (IOException e) {
-			e.printStackTrace();
-			Assert.fail(e.getMessage());
 		} 
 	}
 	
-//	@Test
+	@Test
 	public void testLevelQueries() throws NoSuchAlgorithmException, DatabaseException, ValidationException {
 		ipAddress = EncryptionUtility.getSHA512HashAsByteArray("1.3.3.7");
 		
@@ -64,7 +48,7 @@ public class LevelConnectionITCase extends DatabaseTest {
 		Assert.assertNotSame(0, levelId);
 	}
 	
-//	@After
+	@After
 	public void closeConnection() {
 		connection.commit();
 		connection.close();

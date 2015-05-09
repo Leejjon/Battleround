@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Properties;
 
 import org.stofkat.battleround.common.level.structure.Level;
 import org.stofkat.battleround.common.resources.Resources;
@@ -13,8 +12,8 @@ import org.stofkat.battleround.database.security.ValidationException;
 import org.stofkat.battleround.database.security.ValidationUtility;
 
 public class LevelConnection extends DatabaseConnection {
-	public LevelConnection(Properties dbConfig, boolean productionMode, boolean autoCommit) throws DatabaseException {
-		super(dbConfig, productionMode, autoCommit);
+	public LevelConnection(boolean productionMode, boolean autoCommit) throws DatabaseException {
+		super(productionMode, autoCommit);
 	}
 	
 	protected LevelConnection(Connection connection, String schemaName) throws DatabaseException {

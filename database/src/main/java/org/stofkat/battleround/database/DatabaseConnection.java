@@ -3,36 +3,28 @@ package org.stofkat.battleround.database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
-
-import org.stofkat.battleround.database.security.ValidationUtility;
 
 public class DatabaseConnection {
-	public static final String databaseName = "battleround";
+	private static final String databaseName = "battleround";
 	protected Connection connection;
-	protected String schemaName;
 	protected boolean autoCommit;
 	private boolean committed = false;
 	private boolean rolledBack = false;
 	
-	protected DatabaseConnection(Properties dbInfo, boolean productionMode, boolean autoCommit) throws DatabaseException {
+	protected DatabaseConnection(boolean productionMode, boolean autoCommit) throws DatabaseException {
 		this.autoCommit = autoCommit;
 		try {
-			String hostname = dbInfo.getProperty("hostname");
-			
-			schemaName = dbInfo.getProperty("schema");
-			if (schemaName == null) {
-				throw new DatabaseException(DatabaseException.invalidSchema);
-			}
-			
 			if (productionMode) {
 				// Load the class that provides the new "jdbc:google:mysql://" prefix.
 				Class.forName("com.mysql.jdbc.GoogleDriver");
 				connection = DriverManager.getConnection("jdbc:google:mysql://battle-round:battleround/" + databaseName + "?user=root");
 			} else {
+				String localTestMySqlUser = "root";
+				String localTestMySqlPassword = "starwars";
+				
 				// Local MySQL instance to use during development.
 				Class.forName("com.mysql.jdbc.Driver");
-				connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/" +  databaseName, dbInfo.getProperty("user"), dbInfo.getProperty("password"));
+				connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/" +  databaseName, localTestMySqlUser, localTestMySqlPassword);
 			}
 		
 		} catch (SQLException e) {
@@ -46,24 +38,10 @@ public class DatabaseConnection {
 	
 	protected DatabaseConnection(Connection connection, String schemaName) throws DatabaseException {
 		this.connection = connection;
-		this.schemaName = schemaName;
-		
-		if (schemaName == null) {
-			throw new DatabaseException(DatabaseException.invalidSchema);
-		}
 	}
 	
-	/**
-	 * This method should check if the schema name contains any invalid characters. 
-	 * 
-	 * @return The schema name.
-	 * @throws DatabaseException 
-	 */
 	protected String getSchemaName() throws DatabaseException {
-		if(ValidationUtility.onlyContainsCapitals(schemaName)) {
-			return schemaName;
-		}
-		throw new DatabaseException(DatabaseException.invalidSchema);
+		return databaseName;
 	}
 	
 	/**
