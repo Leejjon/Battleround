@@ -29,6 +29,12 @@
 			<artifactId>battleround-common</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.google.appengine</groupId>
+			<artifactId>appengine-api-1.0-sdk</artifactId>
+			<version>1.9.17</version>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -10,11 +10,18 @@
 			padding-top: 5px;
 		}
 	</style>
+	<script>
+	function fixCaptchaUrl() {
+		var captchaImage = document.getElementById("captchaImage");
+		captchaImage.src = getUrl() + captchaImage.src;
+	}
+	</script>
 	<script type="text/javascript" src="../scripts/Register.js"></script>
 	<script type="text/javascript" src="../scripts/Validation.js"></script>
+	<script type="test/javascript" src="../scripts/Url.js"></script>
 	<link rel="stylesheet" type="text/css" href="../stylesheets/default.css">
 </head>
-<body>
+<body onload="fixCaptchaUrl()">
 	<h1>Register</h1>
 	<div id="registerForm">
 	<form action="javascript: tryToRegister()">
@@ -43,7 +50,7 @@
 		</tr>
 		<tr>
 			<td>Captcha picture:</td>
-			<td><img id="captchaImage" src="http://192.168.2.9:8888/Captcha" alt="Sheep" /></td>
+			<td><img id="captchaImage" src="/Captcha" alt="Sheep" /></td>
 		</tr>
 		<tr>
 			<td>Number of sheep:</td>
