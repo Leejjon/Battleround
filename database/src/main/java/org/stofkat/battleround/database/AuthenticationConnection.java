@@ -49,7 +49,7 @@ public class AuthenticationConnection extends DatabaseConnection {
 		ResultSet doesUserNameExistsResultSet = null;
 		try {
 			String checkIfUserExistsQuery = "select accountName from " + getSchemaName()
-					+ ".ACCOUNT where UPPER(accountName) = UPPER(?)";
+					+ ".account where UPPER(accountName) = UPPER(?)";
 			PreparedStatement checkIfUserExistsStatement = connection.prepareStatement(checkIfUserExistsQuery);
 			checkIfUserExistsStatement.setFetchSize(1);
 			checkIfUserExistsStatement.setString(1, userName);
@@ -115,8 +115,8 @@ public class AuthenticationConnection extends DatabaseConnection {
 		final int maximumNumberOfFailedCaptchaAttempts = 3;
 		// This query returns how many failed captcha attempts there have been within the last 10 minutes.
 		String isAllowedToAttemptCaptchaQuery = "select count(*) as numberOfFailedAttemptsWithinLimit " +
-				"from " + getSchemaName() + ".FAILED_CAPTCHA_ATTEMPTS FCA inner join " +
-				getSchemaName() + ".IPADDRESS IPS on FCA.ipId = IPS.ipId " +
+				"from " + getSchemaName() + ".failed_captcha_attempts FCA inner join " +
+				getSchemaName() + ".ipaddress IPS on FCA.ipId = IPS.ipId " +
 				"where IPS.ipHash = ? " +
 				"and FCA.FAILURETIMESTAMP > CURRENT_TIMESTAMP - INTERVAL 10 MINUTE";
 		try {
@@ -150,8 +150,8 @@ public class AuthenticationConnection extends DatabaseConnection {
 		final int maximumNumberOfFailedLogins = 5;
 		// This query returns how many failed login attempts there have been within the last 10 minutes.
 		String isAllowedToLoginQuery = "select count(*) as numberOfFailedAttemptsWithinLimit " +
-				"from " + getSchemaName() + ".LOGINS LI inner join " + getSchemaName() +
-				".IPADDRESS IPS on LI.ipId = IPS.ipId " +
+				"from " + getSchemaName() + ".logins LI inner join " + getSchemaName() +
+				".ipaddress IPS on LI.ipId = IPS.ipId " +
 				"where IPS.ipId = ? and LI.successful = false " +
 				"and LI.loginTimestamp > CURRENT_TIMESTAMP - INTERVAL 10 MINUTE"; 
 		try {

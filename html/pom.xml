@@ -207,4 +207,43 @@
             </plugin>
 		</plugins>
 	</build>
+	
+	<profiles>
+		<!-- Run mvn -Prelease=true -->
+		<profile>
+			<id>release</id>
+			<activation>
+				<property>
+					<name>release</name>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<!-- This replace plugin puts the url of the production server in the Url.js file, so that all the html files point to that server. -->
+					<plugin>
+						<groupId>com.google.code.maven-replacer-plugin</groupId>
+						<artifactId>replacer</artifactId>
+						<version>1.5.3</version>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>replace</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<file>${project.build.directory}/${project.build.finalName}/assets/scripts/Url.js</file>
+							<replacements>
+								<replacement>
+									<token>http://192.168.2.2:8080</token>
+									<value>http://battle-round.appspot.com</value>
+								</replacement>
+							</replacements>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

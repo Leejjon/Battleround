@@ -8,7 +8,7 @@ import org.stofkat.battleround.common.User;
 import org.stofkat.battleround.database.AuthenticationConnection;
 import org.stofkat.battleround.server.ActionHandler;
 import org.stofkat.battleround.server.ExecutionContext;
-import org.stofkat.battleround.server.LoginSessionCollector;
+//import org.stofkat.battleround.server.LoginSessionCollector;
 import org.stofkat.battleround.server.game.ServerGame;
 import org.stofkat.battleround.shared.dispatch.actions.GetLevelAction;
 import org.stofkat.battleround.shared.dispatch.exceptions.AuthenticationException;
@@ -39,11 +39,11 @@ public class GetLevelActionHandler implements ActionHandler<GetLevelAction, GetL
 			userObject = session.getAttribute(AuthenticationConnection.userObjectKey);
 			isTheSameSession = true;
 		} else {
-			HttpSession loginSession = LoginSessionCollector.find(action.getSessionId());
-			
-			if (loginSession != null) {
-				userObject = loginSession.getAttribute(AuthenticationConnection.userObjectKey);
-			}
+//			HttpSession loginSession = LoginSessionCollector.find(action.getSessionId());
+//			
+//			if (loginSession != null) {
+//				userObject = loginSession.getAttribute(AuthenticationConnection.userObjectKey);
+//			}
 		}
 		
 		if (userObject != null && userObject instanceof User) {

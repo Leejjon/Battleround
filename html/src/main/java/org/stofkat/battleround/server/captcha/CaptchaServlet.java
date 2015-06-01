@@ -3,6 +3,8 @@ package org.stofkat.battleround.server.captcha;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,8 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Logger;
 import org.stofkat.battleround.database.AuthenticationConnection;
 import org.stofkat.battleround.database.DatabaseException;
 import org.stofkat.battleround.server.security.EncryptionUtility;
@@ -23,7 +23,7 @@ import com.google.appengine.api.utils.SystemProperty;
  */
 public class CaptchaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static Logger log = Logger.getLogger(CaptchaServlet.class); 
+	private static final Logger log = Logger.getLogger("CaptchaServlet");
 	public static final String NUMBER_OF_SHEEPS = "numberOfSheeps";
 
 	/**
@@ -31,7 +31,6 @@ public class CaptchaServlet extends HttpServlet {
 	 */
 	public CaptchaServlet() {
 		super();
-		BasicConfigurator.configure();
 	}
 
 	/**
@@ -48,9 +47,9 @@ public class CaptchaServlet extends HttpServlet {
 			captchaAllowed = connection.isAllowedToAttemptCaptcha(EncryptionUtility.getSHA512HashAsByteArray(request.getRemoteAddr()));
 			connection.close();
 		} catch (DatabaseException e) {
-			log.error(e.getMessage());
+			log.log(Level.SEVERE, e.getMessage());
 		} catch (NoSuchAlgorithmException e) {
-			log.error(e.getMessage());
+			log.log(Level.SEVERE, e.getMessage());
 		}
 		
 		response.setContentType(Captcha.mimeType);

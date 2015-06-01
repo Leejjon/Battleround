@@ -63,8 +63,9 @@
 		<url-pattern>/LevelDesigner/servlet</url-pattern>
 	</servlet-mapping>
 
-	<!-- Nothing to see here folks, just a huge security flaw so carry on. -->
+	<!-- Nothing to see here folks, just a huge security flaw so carry on. 
 	<listener>
 		<listener-class>org.stofkat.battleround.server.LoginSessionCollector</listener-class>
 	</listener>
+	-->
 </web-app>

@@ -223,7 +223,7 @@
 							<file>${project.build.directory}/generated-sources/combined-assets/assets/scripts/Url.js</file>
 							<replacements>
 								<replacement>
-									<token>http://192.168.2.2</token>
+									<token>http://192.168.2.2:8080</token>
 									<value>http://battle-round.appspot.com</value>
 								</replacement>
 							</replacements>

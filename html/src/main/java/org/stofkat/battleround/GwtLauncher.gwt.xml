@@ -23,4 +23,7 @@
 	<entry-point class='org.stofkat.battleround.html.GwtLauncher'/>
 	<set-configuration-property name="gdx.assetpath" value="assets" />
 	<set-configuration-property name="gdx.assetoutputpath" value="html/target/battleround-html-1.0-SNAPSHOT" />
+	
+	<!-- Remove this when we've upgraded to the newest libgdx -->
+	<set-configuration-property name='xsiframe.failIfScriptTag' value='FALSE'/>
 </module>
