@@ -5,6 +5,13 @@
 														 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
 	<servlet>
+		<servlet-name>_ah_sessioncleanup</servlet-name>
+		<servlet-class>com.google.apphosting.utils.servlet.SessionCleanupServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>CaptchaServlet</servlet-name>
+		<servlet-class>org.stofkat.battleround.server.captcha.CaptchaServlet</servlet-class>
+	<servlet>
 		<servlet-name>RegisterServlet</servlet-name>
 		<servlet-class>org.stofkat.battleround.server.authentication.RegisterServlet</servlet-class>
 	</servlet>
@@ -12,9 +19,6 @@
 		<servlet-name>LoginServlet</servlet-name>
 		<servlet-class>org.stofkat.battleround.server.authentication.LoginServlet</servlet-class>
 	</servlet>
-	<servlet>
-		<servlet-name>CaptchaServlet</servlet-name>
-		<servlet-class>org.stofkat.battleround.server.captcha.CaptchaServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>GwtDispatchServlet</servlet-name>
@@ -28,6 +32,19 @@
 		<servlet-name>ImageUploaderServlet</servlet-name>
 		<servlet-class>org.stofkat.battleround.server.uploader.ImageUploaderServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>levelDesignerServlet</servlet-name>
+		<servlet-class>org.stofkat.battleround.leveldesigner.server.LevelDesignerServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CaptchaServlet</servlet-name>
+		<url-pattern>/Captcha</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>_ah_sessioncleanup</servlet-name>
+		<url-pattern>/_ah/sessioncleanup</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>RegisterServlet</servlet-name>
 		<url-pattern>/Register</url-pattern>
@@ -35,10 +52,6 @@
 	<servlet-mapping>
 		<servlet-name>LoginServlet</servlet-name>
 		<url-pattern>/Login</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>CaptchaServlet</servlet-name>
-		<url-pattern>/Captcha</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>GwtDispatchServlet</servlet-name>
@@ -52,12 +65,6 @@
 		<servlet-name>ImageUploaderServlet</servlet-name>
 		<url-pattern>/ImageUploader</url-pattern>
 	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>levelDesignerServlet</servlet-name>
-		<servlet-class>org.stofkat.battleround.leveldesigner.server.LevelDesignerServiceImpl</servlet-class>
-	</servlet>
-
 	<servlet-mapping>
 		<servlet-name>levelDesignerServlet</servlet-name>
 		<url-pattern>/LevelDesigner/servlet</url-pattern>
