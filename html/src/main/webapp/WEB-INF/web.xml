@@ -11,6 +11,7 @@
 	<servlet>
 		<servlet-name>CaptchaServlet</servlet-name>
 		<servlet-class>org.stofkat.battleround.server.captcha.CaptchaServlet</servlet-class>
+	</servlet>
 	<servlet>
 		<servlet-name>RegisterServlet</servlet-name>
 		<servlet-class>org.stofkat.battleround.server.authentication.RegisterServlet</servlet-class>
@@ -18,7 +19,6 @@
 	<servlet>
 		<servlet-name>LoginServlet</servlet-name>
 		<servlet-class>org.stofkat.battleround.server.authentication.LoginServlet</servlet-class>
-	</servlet>
 	</servlet>
 	<servlet>
 		<servlet-name>GwtDispatchServlet</servlet-name>
@@ -70,9 +70,13 @@
 		<url-pattern>/LevelDesigner/servlet</url-pattern>
 	</servlet-mapping>
 
-	<!-- Nothing to see here folks, just a huge security flaw so carry on. 
-	<listener>
-		<listener-class>org.stofkat.battleround.server.LoginSessionCollector</listener-class>
-	</listener>
-	-->
+	<security-constraint>
+		<web-resource-collection>
+			<url-pattern>/_ah/sessioncleanup</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+		</auth-constraint>
+	</security-constraint>
+	
 </web-app>
