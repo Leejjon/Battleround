@@ -14,5 +14,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface LevelDesignerService extends RemoteService {
 	User isAuthenticated() throws ActionException;
 	
+	Level createNewLevel() throws ActionException;
+	
 	Level loadExistingLevel(long levelId) throws ActionException;
 }

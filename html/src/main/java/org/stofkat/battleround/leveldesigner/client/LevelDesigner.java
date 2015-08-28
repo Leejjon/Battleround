@@ -62,7 +62,9 @@ public class LevelDesigner implements EntryPoint, LevelDesignerClientInterface {
 		rootPanel.add(dockLayoutPanel);
 		rootPanel.setWidgetLeftWidth(dockLayoutPanel, 0.0, Unit.PX, 800.0, Unit.PX);
 		rootPanel.setWidgetTopHeight(dockLayoutPanel, 0.0, Unit.PX, 600.0, Unit.PX);
-
+		
+		
+		
 		StackPanel stackPanel = new StackPanel();
 		dockLayoutPanel.addEast(stackPanel, 9.2);
 
@@ -150,14 +152,15 @@ public class LevelDesigner implements EntryPoint, LevelDesignerClientInterface {
 		detailTabsPanel.add(exampleTabPanel, "Example", false);
 		dockLayoutPanel.addSouth(detailTabsPanel, 7.7);
 
-		SimplePanel westPanel = new SimplePanel();
+		StackPanel westPanel = new StackPanel();
 		dockLayoutPanel.addWest(westPanel, 7.7);
-
+		
 		TabLayoutPanel mainContentTabPanel = new TabLayoutPanel(1.5, Unit.EM);
 
 		SimplePanel levelPreviewPanel = new SimplePanel();
 		mainContentTabPanel.add(levelPreviewPanel, "Level Preview", false);
 		dockLayoutPanel.add(mainContentTabPanel);
+		
 		
 		disableWidgets();
 		

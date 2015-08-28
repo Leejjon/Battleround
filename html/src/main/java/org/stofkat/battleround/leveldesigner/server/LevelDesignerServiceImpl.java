@@ -61,4 +61,10 @@ public class LevelDesignerServiceImpl extends RemoteServiceServlet implements Le
 			throw new AuthenticationException();
 		}
 	}
+
+	@Override
+	public Level createNewLevel() throws ActionException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
